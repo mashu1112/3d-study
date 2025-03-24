@@ -5,7 +5,7 @@
   "main": "src/index.tsx",
   "scripts": {
     "build": "npx esbuild src/index.tsx --bundle --outdir=dist --sourcemap --preserve-symlinks --loader:.md=text --minify && cp index.html dist/",
-    "dev": "npx esbuild src/index.tsx --bundle --outdir=dist --sourcemap --preserve-symlinks --watch --serve=localhost:3002 --servedir=. --loader:.md=text",
+    "dev": "cp index.dev.html index.html.tmp && mv index.html.tmp index.html && npx esbuild src/index.tsx --bundle --outdir=dist --sourcemap --preserve-symlinks --watch --serve=localhost:3002 --servedir=. --loader:.md=text",
     "start": "npm run dev",
     "deploy": "./misc/deploy.sh"
   },

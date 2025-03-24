@@ -54,7 +54,7 @@ function DemoScene(props: {
 	onExpandToggle: (expanded: boolean) => void,
 }) {
 	let { scene, gl: renderer, camera } = useThree();
-	
+
 	let [gui, setGUI] = useState<GUI | null>(globalGUI);
 	let [autoRotate, setAutoRotate] = useState(true);
 	let [showUI, setShowUI] = useState(true);
@@ -94,7 +94,7 @@ function DemoScene(props: {
 		if (pixelRatioParam != null) {
 			pixelRatioProxy.pixelRatio = parseFloat(pixelRatioParam);
 		}
-		
+
 		globalGUI.add(pixelRatioProxy, 'pixelRatio', 0.5, window.devicePixelRatio, 0.25).name('Pixel Ratio');
 
 		setGUI(globalGUI);
@@ -183,7 +183,7 @@ function App() {
 		let demoExists = demoParam != null && demoKeys.includes(demoParam);
 		return demoExists ? demoParam : demoKeys[0];
 	});
-	
+
 	const [showDocs, setShowDocs] = useState(() => {
 		// get url parameter
 		const url = new URL(window.location.href);
@@ -204,7 +204,7 @@ function App() {
 	const demoBasicFn = demoKey != null ? demos.basic[demoKey] : null;
 	const demoReactFn = demoKey != null ? demos.react[demoKey] : null;
 	const hasDemo = demoBasicFn != null || demoReactFn != null;
-	
+
 	useEffect(() => {
 		// react to url changes
 		window.addEventListener('hashchange', () => {
@@ -223,72 +223,13 @@ function App() {
 			}
 		}
 		window.addEventListener('keydown', onKeyDown);
-		
+
 		return () => {
 			window.removeEventListener('keydown', onKeyDown);
 		}
 	}, []);
 
 	return <>
-		{showDocs && <div className='demo-menu'>
-			<Markdown
-				components={{
-					h2(props) {
-						const { node, children, ...rest } = props;
-						let id = (node as any).children[0].value.toLowerCase().replace(/\s/g, '-');
-						const isActive = id === demoKey;
-						function activateDemo(e: React.MouseEvent<HTMLHeadingElement, MouseEvent>) {
-							document.getElementById(id)?.querySelector('a')?.click();
-							// setDemoKey(id);
-							// document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-						}
-						// make clickable
-						return <h2
-							{...rest}
-							id={id}
-							onClick={activateDemo}
-							className={isActive ? 'active' : ''}
-						>
-							<a href={`#${id}`}>{children}</a>
-							{!isActive && <button >View Demo</button>}
-						</h2>;
-					},
-					code(props) {
-						const { children, className, node, ref, ...rest } = props
-						const match = /language-(\w+)/.exec(className || '')
-						return match ? (
-							<SyntaxHighlighter
-								{...rest}
-								children={String(children).replace(/\n$/, '')}
-								language={match[1]}
-								style={syntaxTheme}
-							/>
-						) : (
-							<code {...rest} className={className}>
-								{children}
-							</code>
-						)
-					},
-					a(props) {
-						let { href, ...rest } = props;
-						
-						// replace ./src links with github links for better readability
-						if (href?.startsWith('./src')) {
-							href = 'https://github.com/lumalabs/luma-web-examples/blob/main/' + href.slice(1);
-						}
-
-						let isAbsolute = /^https?:\/\//.test(href ?? '');
-						if (isAbsolute) {
-							// open in new tab
-							return <a {...rest} href={href} target='_blank' rel='noopener noreferrer' />
-						} else {
-							return <a {...rest} href={href} />
-						}
-					}
-				}}
-			>{readme}</Markdown>
-		</div>}
-
 		{hasDemo && <Canvas
 			gl={{
 				antialias: false,
