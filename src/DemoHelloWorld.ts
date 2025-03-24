@@ -8,13 +8,13 @@ export function DemoHelloWorld(props: DemoProps) {
 	scene.background = new Color('white');
 
 	let splats = new LumaSplatsThree({
-		// MIT WPU Globe @krazyykrunal
-		source: 'https://lumalabs.ai/capture/ca9ea966-ca24-4ec1-ab0f-af665cb546ff',
-		// we disable full three.js for performance
-		enableThreeShaderIntegration: false,
-		// particle entrance animation
-		particleRevealEnabled: true,
-	});
+    // MIT WPU Globe @krazyykrunal
+    source: "https://lumalabs.ai/capture/7B520058-30D3-4BDC-BEAA-8232C8BC9B05",
+    // we disable full three.js for performance
+    enableThreeShaderIntegration: false,
+    // particle entrance animation
+    particleRevealEnabled: true,
+  });
 
 	scene.add(splats);
 
@@ -54,8 +54,8 @@ function createText() {
 	// stroke
 	context.strokeStyle = 'rgba(0, 0, 0, 0.5)'
 	context.lineWidth = 5;
-	context.fillText('Hello World', canvas.width / 2, canvas.height / 2);
-	context.strokeText('Hello World', canvas.width / 2, canvas.height / 2);
+	context.fillText('Tetsu', canvas.width / 2, canvas.height / 2);
+	context.strokeText('Tetsu', canvas.width / 2, canvas.height / 2);
 
 	// create texture from canvas
 	const texture = new Texture(canvas);
